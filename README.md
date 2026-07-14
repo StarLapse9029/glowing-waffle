@@ -1,4 +1,4 @@
-# Small React Projects
+# Small Projects
 
 ### first_react_app
 Simple dice rolling app. 
