@@ -1,0 +1,15 @@
+.boardContainer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  width: min(60vw, 60vh);
+  aspect-ratio: 1/1;
+  gap: 8px;
+}
+
+.boardContainer button {
+  height: 100%;
+  width: 100%;
+}
+
+
