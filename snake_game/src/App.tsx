@@ -1,6 +1,7 @@
 import './App.css'
 import Grid from './Grid'
 import { useEffect, useState, useRef } from 'react';
+import StartButton from './StartButton';
 
 type Pos = {
   x: number;
@@ -8,6 +9,9 @@ type Pos = {
 };
 
 function App() {
+  const [start, setStart] = useState(false);
+  const [score, setScore] = useState(0)
+
   const size = 15;
   const speed = 250; 
   const randPos = () => {
@@ -74,24 +78,25 @@ function App() {
     } while (
       snake.current.some(segment => segment.x === x && segment.y === y)
     );
-
+    setScore(prev => prev + 1);
     fruit.current = { x, y };
   };
 const reset = () => {
   ate.current = false;
+  setStart(false);
+  setScore(0);
 
-  const start = {
+  const startPos = {
     x: Math.floor(size / 2),
     y: Math.floor(size / 2),
   };
 
-  snake.current = [start];
-  console.log(snake.current)
+  snake.current = [startPos];
   fruit.current = randPos();
   direction.current = { x: 0, y: 1 };
 
   const newBoard = createMatrix(size);
-  newBoard[start.x][start.y] = 1;
+  newBoard[startPos.x][startPos.y] = 1;
   newBoard[fruit.current.x][fruit.current.y] = 0;
 
   setState(newBoard);
@@ -162,9 +167,22 @@ const reset = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      flexDirection: "column",
+      gap: "2rem",
+      width: "100%",
+      height: "100%",
+      transform: "scale(0.8)",
     }}>
-      <button onClick={reset}>Reset</button>
-      <Grid matrix={state}/>
+      <div>
+        {start ? <div>
+            <button onClick={reset}>Reset</button> 
+            <h1>Score: {score}</h1>
+          </div>: null}
+      </div>
+      <div style={{}}>
+      {start ? <Grid matrix={state}/> 
+        : <StartButton start={() => {setStart(true)}}/>}
+      </div>
     </div>
   )
 }

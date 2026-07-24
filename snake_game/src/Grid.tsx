@@ -3,7 +3,7 @@ import Box from "./Box";
 
 function Grid(props){
 
-  const color = (color) => {
+  const color = (color: number) => {
     if (color == 1){
       return "white";
     }
@@ -34,7 +34,7 @@ function Grid(props){
 
 
   return(
-    <div>
+    <div style={{width: "70%", height: "70%"}}>
       <div style={{
         display: "grid",
         gridTemplateColumns: `repeat(${props.matrix[0].length}, ${cellSize}px)`,
