@@ -12,3 +12,5 @@ Tic Tac Toe game...
 
 ### Snake game
 Snake game
+TODO: fix bug on self collision detection
+
