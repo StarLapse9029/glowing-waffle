@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import Box from "./Box";
 
-function Grid(props){
+type GridProps = {
+  matrix: number[][];
+};
+
+function Grid(props: GridProps){
 
   const color = (color: number) => {
     if (color == 1){
@@ -28,9 +32,12 @@ function Grid(props){
       )
    };
     updateSize();
-    window.addEventListener("resize", updateSize)
+    window.addEventListener("resize", updateSize);
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
 
-  }, [props.matrix]);
+  }, []);
 
 
   return(
@@ -40,8 +47,8 @@ function Grid(props){
         gridTemplateColumns: `repeat(${props.matrix[0].length}, ${cellSize}px)`,
       }}>
         {
-          props.matrix.map((row, rowindex) => (
-            row.map((value, colindex) => (
+          props.matrix.map((row: number[], rowindex: number) => (
+            row.map((value: number, colindex: number) => (
               <Box 
                 color={color(value)} 
                 key={`${rowindex}-${colindex}`} 

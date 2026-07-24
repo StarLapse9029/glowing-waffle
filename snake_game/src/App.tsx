@@ -33,8 +33,8 @@ function App() {
   const snake = useRef<Pos[]>([{x: Math.floor(size/2), y: Math.floor(size/2)},]);
   const update = () => {
     const newBoard = createMatrix(size);
-    if(snake.current[0].x == fruit.current.x 
-       && snake.current[0].y == fruit.current.y){
+    if(snake.current[0].x === fruit.current.x 
+       && snake.current[0].y === fruit.current.y){
         eat()
        };
     moveSnake(); 
@@ -53,6 +53,7 @@ function App() {
     };
     if (selfCollision(newHead)) {
       reset();
+      return;
     }
     snake.current.unshift(newHead);
     if (!ate.current){
@@ -96,18 +97,23 @@ const reset = () => {
   direction.current = { x: 0, y: 1 };
 
   const newBoard = createMatrix(size);
-  newBoard[startPos.x][startPos.y] = 1;
-  newBoard[fruit.current.x][fruit.current.y] = 0;
+    newBoard[startPos.x][startPos.y] = 1;
+    newBoard[fruit.current.x][fruit.current.y] = 0;
 
-  setState(newBoard);
-  return;
-};
+    setState(newBoard);
+    return;
+  };
+  const startGame = () => {
+    reset();
+    setStart(true);
+  }
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case "ArrowUp":
         case "w":
+        case "W":
           if(direction.current.x !== 1){
             direction.current = {
               y: 0,
@@ -118,6 +124,7 @@ const reset = () => {
 
         case "ArrowDown":
         case "s":
+        case "S":
           if (direction.current.x !== -1){
             direction.current = {
               y: 0,
@@ -128,6 +135,7 @@ const reset = () => {
 
         case "ArrowLeft":
          case "a":
+         case "A":
           if (direction.current.y !== 1){
              direction.current = {
               y: -1,
@@ -138,6 +146,7 @@ const reset = () => {
 
         case "ArrowRight":
         case "d":
+        case "D":
           if (direction.current.y !== -1){
             direction.current = {
               y: 1,
@@ -159,7 +168,7 @@ const reset = () => {
       clearInterval(interval);
       window.removeEventListener("keydown", handleKeyDown);
     }
-  }, []);
+  }, [start]);
 
 
   return (
@@ -181,7 +190,7 @@ const reset = () => {
       </div>
       <div style={{}}>
       {start ? <Grid matrix={state}/> 
-        : <StartButton start={() => {setStart(true)}}/>}
+        : <StartButton start={startGame}/>}
       </div>
     </div>
   )
