@@ -14,3 +14,6 @@ Tic Tac Toe game...
 Snake game
 TODO: fix bug on self collision detection
 
+### Pokedex
+TODO: Add search function
+TODO: improve css
