@@ -11,9 +11,9 @@ Simple digital clock app with 24/12 hour formatting and a Stopwatch.
 Tic Tac Toe game...
 
 ### Snake game
-Snake game
+Snake game  
 TODO: fix bug on self collision detection
 
 ### Pokedex
-TODO: Add search function
+TODO: Add search function  
 TODO: improve css
